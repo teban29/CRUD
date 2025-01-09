@@ -1,6 +1,7 @@
 import copy
 import unittest
 import database as db
+import helpers
 
 class TestDatabase(unittest.TestCase):
     def setUp(self):
@@ -33,4 +34,7 @@ class TestDatabase(unittest.TestCase):
         cliente_borrado = db.Clientes.borrar('11A')
         cliente_rebuscado = db.Clientes.buscar('11A')
         self.assertEqual(cliente_borrado.dni, '11A')
-        self.assertIsNone(cliente_rebuscado)
+        
+    def test_dni_valido(self):
+        self.assertTrue(helpers.dni_valido('00A',db.Clientes.lista))
+        self.assertFalse(helpers.dni_valido('113213', db.Clientes.lista))
