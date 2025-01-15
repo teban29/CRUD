@@ -36,7 +36,13 @@ def iniciar():
         elif opcion == '3':
             print("Creando cliente")
             print("================")
-            dni = helpers.leer_texto(3,3,"DNI (2 int y 1 char)").upper()
+            
+            dni = None
+            while True:
+                dni = helpers.leer_texto(3,3,"DNI (2 int y 1 char)").upper()
+                if helpers.dni_valido(dni, db.Clientes.lista):
+                    break
+                
             nombre = helpers.leer_texto(3,30,"Nombre (3 a 30 caracteres)").capitalize()
             apellido = helpers.leer_texto(3,30,"Apellido (3 a 30 caracteres)").capitalize()
             db.Clientes.crear(dni,nombre,apellido)
@@ -61,7 +67,7 @@ def iniciar():
             print("=================")
             dni = helpers.leer_texto(3,3,"DNI (2 int y 1 char)").upper()
             db.Clientes.borrar(dni)
-            print("Cliente borrado") if db.Clientes.borrar(dni) else print("Cliente no encontrado")
+            print("Cliente borrado")
             
             
         elif opcion == '6':
